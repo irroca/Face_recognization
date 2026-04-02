@@ -1,0 +1,14 @@
+{
+    "faces": [
+        {
+            "student_id": "2024001",
+            "name": "张三",
+            "feature": []
+        },
+        {
+            "student_id": "2024002",
+            "name": "李四",
+            "feature": []
+        }
+    ]
+}

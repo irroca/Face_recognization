@@ -1,0 +1,46 @@
+{
+    "detector": {
+        "type": "DLIB_HOG"
+    },
+    "recognizer": {
+        "type": "DLIB_RESNET"
+    },
+    "detection": {
+        "confidence_threshold": "0.6"
+    },
+    "recognition": {
+        "distance_threshold": "0.6"
+    },
+    "model": {
+        "dlib_cnn": "models/mmod_human_face_detector.dat",
+        "shape_predictor": "models/shape_predictor_68_face_landmarks.dat",
+        "dlib_resnet": "models/dlib_face_recognition_resnet_model_v1.dat",
+        "opencv_dnn_config": "models/deploy.prototxt",
+        "opencv_dnn_weights": "models/res10_300x300_ssd_iter_140000.caffemodel"
+    },
+    "database": {
+        "face_db_path": "data/face_database.json"
+    },
+    "cuda": {
+        "device_id": "0",
+        "enabled": "true"
+    },
+    "preprocess": {
+        "resize_width": "640",
+        "resize_height": "480"
+    },
+    "encode": {
+        "format": "JPEG",
+        "jpeg_quality": "85"
+    },
+    "webrtc": {
+        "stun_server": "stun:stun.l.google.com:19302"
+    },
+    "signaling": {
+        "ws_port": "8765"
+    },
+    "log": {
+        "level": "INFO",
+        "file": "smart_classroom.log"
+    }
+}

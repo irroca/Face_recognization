@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧教室 — 人脸跟踪识别系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🎓 智慧教室人脸跟踪识别系统</h1>
+        <p class="subtitle">Smart Classroom Face Tracking & Recognition</p>
+    </header>
+
+    <main>
+        <div class="video-container">
+            <div class="video-panel">
+                <h3>📷 本地摄像头</h3>
+                <video id="localVideo" autoplay playsinline muted></video>
+                <div class="video-label">推流画面</div>
+            </div>
+            <div class="video-panel">
+                <h3>🖥️ 识别结果</h3>
+                <canvas id="remoteCanvas" width="640" height="480"></canvas>
+                <div class="video-label">后端处理后画面（人脸检测+识别）</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="detectorSelect">检测算法：</label>
+                <select id="detectorSelect">
+                    <option value="DLIB_HOG">Dlib HOG (CPU)</option>
+                    <option value="DLIB_CNN_CUDA">Dlib CNN (CUDA GPU)</option>
+                    <option value="OPENCV_DNN">OpenCV DNN</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="recognizerSelect">识别算法：</label>
+                <select id="recognizerSelect">
+                    <option value="DLIB_RESNET">Dlib ResNet 128D</option>
+                    <option value="OPENCV_LBPH">OpenCV LBPH</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <button id="connectBtn" onclick="toggleConnection()">连接</button>
+                <button id="switchAlgoBtn" onclick="switchAlgorithm()">切换算法</button>
+            </div>
+
+            <div class="status-bar">
+                <span id="connectionStatus" class="status disconnected">● 未连接</span>
+                <span id="fpsCounter">FPS: --</span>
+            </div>
+        </div>
+
+        <div class="notification-panel">
+            <h3>📋 识别通知</h3>
+            <div id="notificationList"></div>
+        </div>
+    </main>
+
+    <script src="js/webrtc-client.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
