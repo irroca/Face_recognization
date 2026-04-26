@@ -33,7 +33,7 @@ bool PreprocessFilter::process(VideoFrame& frame) {
         cv::Mat resized;
         cv::resize(frame.image, resized, cv::Size(targetWidth_, targetHeight_),
                    0, 0, cv::INTER_LINEAR);
-        frame.image = resized;
+        frame.image = std::move(resized);
         LOG_DEBUG("PreprocessFilter: resized to " + std::to_string(targetWidth_)
                   + "x" + std::to_string(targetHeight_));
     }

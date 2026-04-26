@@ -13,6 +13,11 @@
 
 namespace smart_classroom {
 
+FaceDatabase::FaceDatabase() {
+    matchThreshold_ = static_cast<float>(
+        ConfigManager::getInstance().getDouble("recognition.distance_threshold", 0.6));
+}
+
 void FaceDatabase::enrollFace(const FaceIdentity& identity) {
     std::lock_guard<std::mutex> lock(mutex_);
 
@@ -45,10 +50,8 @@ std::string FaceDatabase::match(const std::vector<float>& feature, float& distan
         }
     }
 
-    // [Design Pattern: Singleton] 使用 ConfigManager 获取动态阈值
-    float threshold = static_cast<float>(
-        ConfigManager::getInstance().getDouble(
-            "recognition.distance_threshold", matchThreshold_));
+    // 使用成员阈值（构造时或通过 setMatchThreshold 设置）
+    float threshold = matchThreshold_;
 
     if (distance > threshold) {
         LOG_DEBUG("FaceDatabase: best match distance " + std::to_string(distance)

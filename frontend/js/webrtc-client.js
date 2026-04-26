@@ -143,6 +143,10 @@ function renderProcessedFrame(arrayBuffer) {
         frameCount++;  // FPS 计数（ui.js 中定义）
     };
 
+    img.onerror = () => {
+        URL.revokeObjectURL(url);
+    };
+
     img.src = url;
 }
 

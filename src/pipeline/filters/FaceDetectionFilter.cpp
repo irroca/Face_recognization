@@ -53,10 +53,10 @@ bool FaceDetectionFilter::process(VideoFrame& frame) {
     if (scale < 1.0f) {
         float invScale = 1.0f / scale;
         for (auto& face : frame.detectedFaces) {
-            face.bbox.x = static_cast<int>(face.bbox.x * invScale);
-            face.bbox.y = static_cast<int>(face.bbox.y * invScale);
-            face.bbox.width = static_cast<int>(face.bbox.width * invScale);
-            face.bbox.height = static_cast<int>(face.bbox.height * invScale);
+            face.bbox.x = static_cast<int>(static_cast<float>(face.bbox.x) * invScale);
+            face.bbox.y = static_cast<int>(static_cast<float>(face.bbox.y) * invScale);
+            face.bbox.width = static_cast<int>(static_cast<float>(face.bbox.width) * invScale);
+            face.bbox.height = static_cast<int>(static_cast<float>(face.bbox.height) * invScale);
         }
     }
 

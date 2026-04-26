@@ -88,7 +88,11 @@ bool ConfigManager::loadFromFile(const std::string& filePath) {
         flatten(jsonConfig, "");
 
         return true;
+    } catch (const nlohmann::json::parse_error& e) {
+        LOG_ERROR("ConfigManager: JSON parse error: " + std::string(e.what()));
+        return false;
     } catch (const std::exception& e) {
+        LOG_ERROR("ConfigManager: failed to load config: " + std::string(e.what()));
         return false;
     }
 }

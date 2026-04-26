@@ -129,8 +129,10 @@ async def read_backend_events():
     global backend_proc
     try:
         import select
+        loop = asyncio.get_event_loop()
         while backend_proc and backend_proc.poll() is None:
-            rlist, _, _ = select.select([backend_proc.stderr], [], [], 0.1)
+            rlist = await loop.run_in_executor(
+                None, lambda: select.select([backend_proc.stderr], [], [], 0.5)[0])
             if rlist:
                 line = backend_proc.stderr.readline()
                 if not line:
@@ -143,8 +145,6 @@ async def read_backend_events():
                         "data": {"message": event_data}
                     })
                     await broadcast_text(msg)
-            else:
-                await asyncio.sleep(0.05)
     except Exception as e:
         logger.error(f"Error reading backend events: {e}")
 

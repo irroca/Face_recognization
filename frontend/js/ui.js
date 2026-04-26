@@ -52,9 +52,9 @@ function addNotification(data) {
 // FPS 计数器
 let frameCount = 0;
 let lastFpsTime = performance.now();
+let fpsAnimationId = null;
 
 function updateFps() {
-    frameCount++;
     const now = performance.now();
     if (now - lastFpsTime >= 1000) {
         document.getElementById('fpsCounter').textContent =
@@ -62,7 +62,7 @@ function updateFps() {
         frameCount = 0;
         lastFpsTime = now;
     }
-    requestAnimationFrame(updateFps);
+    fpsAnimationId = requestAnimationFrame(updateFps);
 }
 
-requestAnimationFrame(updateFps);
+fpsAnimationId = requestAnimationFrame(updateFps);

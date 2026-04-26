@@ -39,8 +39,13 @@ void AttendanceObserver::onEvent(const RecognitionEvent& event) {
     // 生成签到时间戳
     auto now = std::chrono::system_clock::now();
     auto time = std::chrono::system_clock::to_time_t(now);
+    auto* tm = std::localtime(&time);
+    if (!tm) {
+        LOG_ERROR("AttendanceObserver: localtime() failed");
+        return;
+    }
     std::ostringstream timestamp;
-    timestamp << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S");
+    timestamp << std::put_time(tm, "%Y-%m-%d %H:%M:%S");
 
     // 记录到日志文件
     std::ofstream logFile(logFilePath_, std::ios::app);
@@ -49,6 +54,8 @@ void AttendanceObserver::onEvent(const RecognitionEvent& event) {
                 << " | " << identity
                 << " | confidence: " << event.faceInfo.recognitionDistance
                 << std::endl;
+    } else {
+        LOG_WARN("AttendanceObserver: cannot open log file " + logFilePath_);
     }
 
     LOG_INFO("AttendanceObserver: student '" + identity

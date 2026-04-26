@@ -9,6 +9,7 @@
 #include "core/Types.h"
 #include <vector>
 #include <unordered_map>
+#include <atomic>
 
 namespace smart_classroom {
 
@@ -32,7 +33,7 @@ public:
 
 private:
     std::vector<TrackedFace> tracks_;
-    int nextTrackId_ = 1;
+    std::atomic<int> nextTrackId_{1};
 
     // 计算两个 BoundingBox 的 IoU
     static float computeIoU(const BoundingBox& a, const BoundingBox& b);

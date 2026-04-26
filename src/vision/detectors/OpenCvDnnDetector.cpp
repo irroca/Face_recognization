@@ -83,6 +83,7 @@ std::vector<FaceInfo> OpenCvDnnDetector::detect(const cv::Mat& frame) {
                          CV_32F, detections.ptr<float>());
 
     for (int i = 0; i < detectionMat.rows; ++i) {
+        if (detectionMat.cols < 7) continue;
         float confidence = detectionMat.at<float>(i, 2);
         if (confidence < confidenceThreshold_) continue;
 

@@ -48,7 +48,12 @@ bool CudaResourceManager::initialize(int deviceId) {
     }
 
     cudaDeviceProp prop;
-    cudaGetDeviceProperties(&prop, deviceId);
+    err = cudaGetDeviceProperties(&prop, deviceId);
+    if (err != cudaSuccess) {
+        LOG_ERROR("Failed to get CUDA device properties: " + std::string(cudaGetErrorString(err)));
+        cudaAvailable_ = false;
+        return false;
+    }
 
     deviceId_ = deviceId;
     deviceName_ = prop.name;

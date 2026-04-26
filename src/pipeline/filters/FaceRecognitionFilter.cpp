@@ -35,10 +35,12 @@ bool FaceRecognitionFilter::process(VideoFrame& frame) {
     }
 
     if (frame.detectedFaces.empty()) {
+        std::lock_guard<std::mutex> lock(mutex_);
         cachedIdentities_.clear();
         return true;
     }
 
+    std::lock_guard<std::mutex> lock(mutex_);
     frameCounter_++;
     bool shouldRecognize = (frameCounter_ % RECOGNIZE_EVERY_N_FRAMES == 1)
                            || cachedIdentities_.empty();
@@ -115,6 +117,7 @@ void FaceRecognitionFilter::emitRecognitionEvent(const FaceInfo& face,
 // [Design Pattern: Strategy] 运行时切换识别算法
 void FaceRecognitionFilter::setRecognizer(
     std::shared_ptr<IFaceRecognizer> recognizer) {
+    std::lock_guard<std::mutex> lock(mutex_);
     recognizer_ = std::move(recognizer);
     if (recognizer_) {
         LOG_INFO("FaceRecognitionFilter: switched to recognizer '"

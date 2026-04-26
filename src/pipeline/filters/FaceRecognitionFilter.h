@@ -24,6 +24,7 @@
 #include "vision/FaceDatabase.h"
 #include "observer/ISubject.h"
 #include <memory>
+#include <mutex>
 
 namespace smart_classroom {
 
@@ -56,6 +57,7 @@ private:
     int frameCounter_ = 0;
     static constexpr int RECOGNIZE_EVERY_N_FRAMES = 5;
     std::vector<FaceInfo> cachedIdentities_;  // 缓存的识别结果
+    mutable std::mutex mutex_;
 };
 
 } // namespace smart_classroom

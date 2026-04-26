@@ -3,7 +3,11 @@
 基于 WebRTC/OpenCV/Dlib 的智慧教室人脸跟踪识别系统。
 C++17 后端实现 6 级管道-过滤器视频处理管道，支持 CUDA GPU 加速，综合运用 5 种经典设计模式。
 
-> **课程设计文档**：[docs/final_report.md](docs/final_report.md) — 软件体系结构与设计模式分析报告
+> **课程设计文档**：
+>
+> - [docs/final_report.md](docs/final_report.md) — 软件体系结构与设计模式分析报告（综合版）
+> - [docs/design/software_architecture.md](docs/design/software_architecture.md) — 软件体系结构分析（10 章）
+> - [docs/design/design_patterns.md](docs/design/design_patterns.md) — 设计模式分析（10 章）
 
 ## 系统架构
 
@@ -128,7 +132,11 @@ LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu ctest --test-dir build --output-on-fai
 ```
 ├── CMakeLists.txt
 ├── config.json                        # 运行配置
-├── docs/final_report.md               # 课程设计报告
+├── docs/                              # 设计文档
+│   ├── final_report.md                # 课程设计报告（综合版）
+│   └── design/                        # 详细设计文档
+│       ├── software_architecture.md   # 软件体系结构分析（10 章）
+│       └── design_patterns.md         # 设计模式分析（10 章）
 ├── src/                               # C++ 后端源码
 │   ├── core/                          # [Singleton] ConfigManager, Logger, CudaResourceManager
 │   ├── pipeline/                      # [Pipeline-Filter] IFilter, Pipeline, FilterFactory

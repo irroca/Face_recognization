@@ -20,7 +20,7 @@ namespace smart_classroom {
 
 class FaceDatabase {
 public:
-    FaceDatabase() = default;
+    FaceDatabase();
     ~FaceDatabase() = default;
 
     // 注册新人脸（学生 ID + 姓名 + 特征向量）

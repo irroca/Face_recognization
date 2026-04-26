@@ -121,11 +121,11 @@ void PipeProcessor::handleControlMessage(const std::string& jsonStr) {
                         std::shared_ptr<IFaceDetector>(newDetector.release()));
 
                     std::string evt = "EVENT:[算法切换] 检测算法已切换为 " + detectorType + "\n";
-                    ::write(STDERR_FILENO, evt.c_str(), evt.size());
+                    (void)::write(STDERR_FILENO, evt.c_str(), evt.size());
                 } else {
                     std::string evt = "EVENT:[错误] 检测算法 " + detectorType
                         + " 初始化失败（可能需要 GPU 支持）\n";
-                    ::write(STDERR_FILENO, evt.c_str(), evt.size());
+                    (void)::write(STDERR_FILENO, evt.c_str(), evt.size());
                 }
             }
 
@@ -138,7 +138,7 @@ void PipeProcessor::handleControlMessage(const std::string& jsonStr) {
                         std::shared_ptr<IFaceRecognizer>(newRecognizer.release()));
 
                     std::string evt = "EVENT:[算法切换] 识别算法已切换为 " + recognizerType + "\n";
-                    ::write(STDERR_FILENO, evt.c_str(), evt.size());
+                    (void)::write(STDERR_FILENO, evt.c_str(), evt.size());
                 }
             }
         } else {
@@ -178,7 +178,7 @@ void PipeProcessor::flushNotifications() {
     for (const auto& notification : notifications) {
         // 写到 stderr: "EVENT:{...}\n"
         std::string line = "EVENT:" + notification + "\n";
-        ::write(STDERR_FILENO, line.c_str(), line.size());
+        (void)::write(STDERR_FILENO, line.c_str(), line.size());
     }
 }
 
